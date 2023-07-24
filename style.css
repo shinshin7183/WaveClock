@@ -1,0 +1,18 @@
+#display{
+    background-image: url(./ruleline.svg);
+    background-repeat: repeat;
+    /* background-color: white; */
+    color: black;
+    border: 2px solid yellowgreen;
+    margin-bottom: 1em;
+    width: 900px;
+    height: 675px;
+    overflow: hidden;
+}
+#display.dark{
+    background-color: black;
+    color: white;
+}
+#digiralClock{
+    text-align: right;
+}

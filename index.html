@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>オリジナル時計</title>
+</head>
+<body>
+    <!--SVG定義(描画領域は未定義)-->
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="0">
+        <defs>
+            <symbol id="svg_sin_s" viewBox="0 0 3600 100">
+                <path d="M 0 50 Q 25 -40,50 50 T 100 50" stroke="red" fill="none"/>
+            </symbol>
+            <symbol id="svg_sin_m" viewBox="0 0 600 100">
+                <path d="M 0 50 Q 25 -40,50 50 T 100 50" stroke="green" fill="none"/>
+            </symbol>
+            <symbol id="svg_sin_h" viewBox="0 0 100 100">
+                <path d="M 0 50 Q 25 -40,50 50 T 100 50 T 150 50 T 200 50 T 250 50 T 300 50" stroke="blue" fill="none"/>
+            </symbol>
+        </defs>
+    </svg>
+    <main>
+        <div id="display">
+            <!-- sec=20px,min=1200px,hour=72000px -->
+            <svg id="sin_s" width="900" height="100" viewBox="0 0 3600 100" preserveAspectRatio="none"><use xlink:href="#svg_sin_s"/></svg>
+            <svg id="sin_m" width="900" height="150" viewBox="0 0 600 100" preserveAspectRatio="none"><use xlink:href="#svg_sin_m"/></svg>
+            <svg id="sin_h" width="900" height="200" viewBox="0 0 100 100" preserveAspectRatio="none"><use xlink:href="#svg_sin_h"/></svg>
+            <!-- <svg id="sin" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <defs>
+                    <pattern id="cycle" width="100%" height="100%" patternUnits="userSpaceOnUse">
+                        <path d="M 0 50 Q 25 100,50 50 T 100 50 T 150 50 T 200 50" stroke="black" fill="none"/>
+                    </pattern>
+                </defs>
+                <rect width="100" height="100" fill="url(#cycle)"/>
+            </svg> -->
+            <p id="digiralClock">00:00:00.000</p>
+        </div>
+        <div>
+            <button id="btn_tone">背景色変更</button>
+            <button id="btn_s">幅変更（秒）</button>
+            <button id="btn_m">幅変更（分）</button>
+            <button id="btn_h">幅変更（時）</button>
+        </div>
+    </main>
+    <script>
+        "use strict";
+        /*変数宣言*/
+        const display=document.querySelector('#display');
+        const svg_sin_s=document.querySelector('#svg_sin_s');
+        const svg_sin_m=document.querySelector('#svg_sin_m');
+        const svg_sin_h=document.querySelector('#svg_sin_h');
+        const sin_s=document.querySelector('#sin_s');
+        const sin_m=document.querySelector('#sin_m');
+        const sin_h=document.querySelector('#sin_h');
+        const digiralClock=document.querySelector('#digiralClock');
+        const btn_tone=document.querySelector('#btn_tone');
+        const btn_s=document.querySelector('#btn_s');
+        const btn_m=document.querySelector('#btn_m');
+        const btn_h=document.querySelector('#btn_h');
+        let mode=[0,0,0,0];
+        
+        /*関数宣言*/
+        const moveWave=(m,s,ms)=>{
+            svg_sin_s.setAttribute("viewBox",`${ms/(1000/100)} 0 3600 100`);
+            svg_sin_m.setAttribute("viewBox",`${(s+ms/1000)*(100/60)} 0 600 100`);
+            svg_sin_h.setAttribute("viewBox",`${(m+s/60+ms/(1000*60))*(100/60)} 0 100 100`);
+        }
+        const addZero = (num,digit) => {
+            if(digit===3){
+                return num = num < 10 ? `00${num}` : num < 100 ? `0${num}` : num;
+            }else{
+                return num = num < 10 ? `0${num}` : num;
+            }
+        }
+        const clock = () => {
+            const now = new Date();
+            let hour = now.getHours();
+            let min = now.getMinutes();
+            let sec = now.getSeconds();
+            let milisec = now.getMilliseconds(); //ミリ秒(0~999ms)を取得
+            moveWave(min,sec,milisec); //位相変化
+            digiralClock.innerHTML = `${addZero(hour,2)}:${addZero(min,2)}:${addZero(sec,2)}.${addZero(milisec,3)}`; //デジタル時計
+            requestAnimationFrame(clock);
+        }
+
+        /*メイン処理*/
+        //波形を複数生成する
+        for(let i=1;i<=6;i++){
+            svg_sin_m.innerHTML+=`<path d="M ${i*100} 50 Q ${i*100+25} -40,${i*100+50} 50 T ${i*100+100} 50" stroke="green" fill="none"/>`;
+        }
+        for(let i=1;i<=36;i++){
+            svg_sin_s.innerHTML+=`<path d="M ${i*100} 50 Q ${i*100+25} -40,${i*100+50} 50 T ${i*100+100} 50" stroke="red" fill="none"/>`;
+        }
+        
+        //時計始動
+        clock();
+
+        //クリックイベント
+        btn_tone.addEventListener('click',()=>{
+            if(++mode[0] % 2){
+                display.classList.add('dark');
+            }else{
+                display.classList.remove('dark');
+            }
+        });
+        btn_s.addEventListener('click',()=>{
+            if(++mode[1] % 2){
+                sin_s.style.width=1800;
+            }else{
+                sin_s.style.width=900;
+            }
+        });
+        btn_m.addEventListener('click',()=>{
+            if(++mode[2] % 2){
+                sin_m.style.width=1800;
+            }else{
+                sin_m.style.width=900;
+            }
+        });
+        btn_h.addEventListener('click',()=>{
+            if(++mode[3] % 2){
+                sin_h.style.width=1800;
+            }else{
+                sin_h.style.width=900;
+            }
+        });
+    </script>
+</body>
+</html>

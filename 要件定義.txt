@@ -1,0 +1,19 @@
+<正弦波の描画方法>
+・preserveAspectRatio="none"　//svgのアスペクト比を可変にする
+・定義svgのviewboxのX座標で位相を動かす
+
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="display: none;">
+    <defs>
+        <!-- <symbol id="svg_sin" viewbox="0 0 100 100"> -->
+        <symbol id="svg_sin">
+            <pattern id="onecycle" patternUnits="userSpaceOnUse">
+                <path d="M 0 50 Q 25 -50,50 50 T 100 50" stroke="black" fill="none"/>
+            </pattern>
+            <rect x="0" y="0" width="100" height="100" fill="url(#cycle)"/>
+            <!-- <path d="M 0 50 Q 25 -50,50 50 T 100 50 T 150 50 T 200 50" stroke="black" fill="none"/> -->
+            <!-- <path d="M 0 5 Q 2.5 -5,5 5 T 10 5 T 15 5 T 20 5" stroke="black" fill="none"/> -->
+        </symbol>
+    </defs>
+</svg>
+
+<path d="M 0 50 Q 25 -50,50 50 T 100 50" stroke="black" fill="none"/>
