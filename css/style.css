@@ -1,1 +1,92 @@
-
+body{
+    font-family: "ＭＳ ゴシック","BIZ UDゴシック",sans-serif;
+}
+main{
+    border: 2px solid grey;
+    border-radius: 32px/24px;
+    padding: 32px;
+    background-color: white;
+    /* width: 1100px; */
+    width: fit-content;
+    display: flex;
+    overflow: visible;
+}
+#display{
+    background-image: url(../img/ruleline.svg);
+    background-repeat: repeat;
+    /* background-color: white; */
+    color: black;
+    border: 2px solid yellowgreen;
+    width: 650px;
+    min-width: 650px;
+    height: 500px;
+    overflow: hidden;
+}
+#display.dark{
+    background-color: black;
+    color: white;
+}
+.sin_wave:nth-child(1){
+    height: 100px;
+}
+.sin_wave:nth-child(2){
+    height: 150px;
+}
+.sin_wave:nth-child(3){
+    height: 200px;
+}
+#disp_unit{
+    display: flex;
+    height: 50px;
+    width: auto;
+    background-color: black;
+    color: orangered;
+}
+#disp_unit * span{
+    color: aqua;
+}
+#ch1_unit,#ch2_unit,#ch3_unit,#digiralClock{
+    display: block;
+    transform: translateY(.5em);
+    margin: 0px 20px;
+    width: 162.5px;
+}
+#panel{
+    margin-left: 32px;
+    padding: 32px;
+    /* min-width: 240px; */
+    width: 300px;
+    border-radius: 32px;
+    background-color: powderblue;
+    border: 2px solid black;
+    text-align: center;
+}
+#panel *{
+    margin: 8px 0px;
+    max-width: 80px;
+}
+#btn_tone,#btn_stop{
+    width: 200px;
+    height: 3em;
+    vertical-align: bottom;
+}
+.control{
+    display: flex;
+    text-align: center;
+}
+.control div{
+    border: 2px solid black;
+    border-radius: 16px;
+    padding: 16px;
+}
+.control img[id]{
+    rotate: -48deg;
+    transition: rotate .5s;
+}
+.control img[id].on{
+    rotate: 48deg;
+}
+.button,.terminal{
+    display: inline;
+    letter-spacing: 48px;
+}
