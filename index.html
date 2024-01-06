@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>オリジナル時計</title>
+</head>
+<body>
+    <!--SVG定義(描画領域は未定義)-->
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="0">
+        <defs>
+            <symbol id="svg_sin_s" viewBox="0 0 3600 100">
+                <path d="M 0 50 Q 25 -40,50 50 T 100 50" stroke="red" fill="none"/>
+            </symbol>
+            <symbol id="svg_sin_m" viewBox="0 0 600 100">
+                <path d="M 0 50 Q 25 -40,50 50 T 100 50" stroke="green" fill="none"/>
+            </symbol>
+            <symbol id="svg_sin_h" viewBox="0 0 100 100">
+                <path d="M 0 50 Q 25 -40,50 50 T 100 50 T 150 50 T 200 50 T 250 50 T 300 50" stroke="blue" fill="none"/>
+            </symbol>
+        </defs>
+    </svg>
+    <main>
+        <div id="display">
+            <!-- sec=20px,min=1200px,hour=72000px -->
+            <div class="sin_wave">
+                <svg id="sin_s" width="900" height="100" viewBox="0 0 3600 100" preserveAspectRatio="none"><use xlink:href="#svg_sin_s"/></svg>
+            </div>
+            <div class="sin_wave">
+                <svg id="sin_m" width="900" height="150" viewBox="0 0 600 100" preserveAspectRatio="none"><use xlink:href="#svg_sin_m"/></svg>
+            </div>
+            <div class="sin_wave">
+                <svg id="sin_h" width="900" height="200" viewBox="0 0 100 100" preserveAspectRatio="none"><use xlink:href="#svg_sin_h"/></svg>
+            </div>
+            <!-- <svg id="sin" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <defs>
+                    <pattern id="cycle" width="100%" height="100%" patternUnits="userSpaceOnUse">
+                        <path d="M 0 50 Q 25 100,50 50 T 100 50 T 150 50 T 200 50" stroke="black" fill="none"/>
+                    </pattern>
+                </defs>
+                <rect width="100" height="100" fill="url(#cycle)"/>
+            </svg> -->
+            <div id="disp_unit">
+                <div id="ch1_unit">
+                    CH1.<span>0.120</span>[V]<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span>2.000</span>[s]
+                </div>
+                <div id="ch2_unit">
+                    CH2.<span>1.200</span>[V]<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span>20.00</span>[s]
+                </div>
+                <div id="ch3_unit">
+                    CH3.<span>12.00</span>[V]<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span>200.0</span>[s]
+                </div>
+                <div id="digiralClock">
+                    NowTime<br>
+                    <time>00:00:00.000</time>
+                </div>
+            </div>
+        </div>
+        <div id="panel">
+            <span>-Control panel-</span><br>
+            <span class="button">
+                <button id="btn_tone">背景色</button>
+                <button id="btn_stop">波形停止</button>
+            </span>
+            <div class="control">
+                <div>
+                    <span>-CH1-</span>
+                    <img src="img/range.svg" width="64px" height="64px" id="range_sh" alt="高さ変更（秒）">
+                    <span>Voltage</span>
+                    <img src="img/range.svg" width="64px" height="64px" id="range_sw" alt="幅変更（秒）">
+                    <span>Time</span>
+                </div>
+                <div>
+                    <span>-CH2-</span>
+                    <img src="img/range.svg" width="64px" height="64px" id="range_mh" alt="高さ変更（分）">
+                    <span>Voltage</span>
+                    <img src="img/range.svg" width="64px" height="64px" id="range_mw" alt="幅変更（分）">
+                    <span>Time</span>
+                </div>
+                <div>
+                    <span>-CH3-</span>
+                    <img src="img/range.svg" width="64px" height="64px" id="range_hh" alt="高さ変更（時）">
+                    <span>Voltage</span>
+                    <img src="img/range.svg" width="64px" height="64px" id="range_hw" alt="幅変更（時）">
+                    <span>Time</span>
+                </div>
+            </div>
+            <div class="terminal">
+                <img src="img/terminal.svg" width="48px" height="48px" alt="端子">
+                <img src="img/terminal.svg" width="48px" height="48px" alt="端子">
+                <img src="img/terminal.svg" width="48px" height="48px" alt="端子">
+            </div>
+        </div>
+    </main>
+    <script src="script/main.js" defer>//メイン処理</script>
+</body>
+</html>
